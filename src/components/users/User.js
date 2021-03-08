@@ -5,18 +5,19 @@ import { Link } from "react-router-dom";
 import GithubContext from '../../context/github/githubContext'
 
 const User = ({ match }) => {
-const githubContext = useContext(GithubContext)
-const { user, getUser, getUserRepos, repos, loading} = githubContext;
+  const githubContext = useContext(GithubContext);
+
+  const { getUser, loading, user, repos, getUserRepos } = githubContext;
+
   useEffect(() => {
     getUser(match.params.login);
     getUserRepos(match.params.login);
-    //eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
-  console.log(match.params.login);
-  console.log(user.company);
   const {
     name,
+    company,
     avatar_url,
     location,
     bio,
@@ -27,30 +28,29 @@ const { user, getUser, getUserRepos, repos, loading} = githubContext;
     following,
     public_repos,
     public_gists,
-    hireable,
-    company,
-  } = githubContext.user;
+    hireable
+  } = user;
 
   if (loading) return <Spinner />;
+
   return (
     <Fragment>
-      <Link to="/" className="btn btn-light">
-        Back to seach
+      <Link to='/' className='btn btn-light'>
+        Back To Search
       </Link>
-      <br />
-      Hireable:{" "}
+      Hireable:{' '}
       {hireable ? (
-        <i className="fas fa-check text-success" />
+        <i className='fas fa-check text-success' />
       ) : (
-        <i className="fas fa-times-circle text-danger" />
+        <i className='fas fa-times-circle text-danger' />
       )}
-      <div className="card grid-2">
-        <div className="all-center">
+      <div className='card grid-2'>
+        <div className='all-center'>
           <img
             src={avatar_url}
-            alt="avatar img"
-            className="round-img"
-            style={{ width: "150px" }}
+            className='round-img'
+            alt=''
+            style={{ width: '150px' }}
           />
           <h1>{name}</h1>
           <p>Location: {location}</p>
@@ -58,19 +58,18 @@ const { user, getUser, getUserRepos, repos, loading} = githubContext;
         <div>
           {bio && (
             <Fragment>
-              <h3>Bio: </h3>
+              <h3>Bio</h3>
               <p>{bio}</p>
             </Fragment>
           )}
-          <a href={html_url} className="btn btn-dark my-1">
+          <a href={html_url} className='btn btn-dark my-1'>
             Visit Github Profile
           </a>
           <ul>
             <li>
               {login && (
                 <Fragment>
-                  <strong>Username: </strong>
-                  {login}
+                  <strong>Username: </strong> {login}
                 </Fragment>
               )}
             </li>
@@ -78,8 +77,7 @@ const { user, getUser, getUserRepos, repos, loading} = githubContext;
             <li>
               {company && (
                 <Fragment>
-                  <strong>Company: </strong>
-                  {company}
+                  <strong>Company: </strong> {company}
                 </Fragment>
               )}
             </li>
@@ -87,19 +85,18 @@ const { user, getUser, getUserRepos, repos, loading} = githubContext;
             <li>
               {blog && (
                 <Fragment>
-                  <strong>Website: </strong>
-                  {blog}
+                  <strong>Website: </strong> {blog}
                 </Fragment>
               )}
             </li>
           </ul>
         </div>
       </div>
-      <div className="card text-center">
-        <div className="badge badge-primary">Followers: {followers}</div>
-        <div className="badge badge-success">Following: {following}</div>
-        <div className="badge badge-light">Public Repos: {public_repos}</div>
-        <div className="badge badge-dark">Public Gists: {public_gists}</div>
+      <div className='card text-center'>
+        <div className='badge badge-primary'>Followers: {followers}</div>
+        <div className='badge badge-success'>Following: {following}</div>
+        <div className='badge badge-light'>Public Repos: {public_repos}</div>
+        <div className='badge badge-dark'>Public Gists: {public_gists}</div>
       </div>
       <Repos repos={repos} />
     </Fragment>
