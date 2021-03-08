@@ -8,20 +8,23 @@ import About from "./components/pages/About";
 import Alert from "./components/layout/Alert";
 import axios from "axios";
 import GithubState from "./context/github/GithubState";
+import AlertState from "./context/alert/AlertState";
+
 import "./App.css";
 
 const App = () => {
   
   // const [user, setUser] = useState({});
   // const [repos, setRepos] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  // const [alert, setAlert] = useState(null);
 
 
 
 
   return (
     <GithubState>
+      <AlertState>
       <Router>
         <div>
           <Navbar className="App" />
@@ -56,6 +59,7 @@ const App = () => {
           </div>
         </div>
       </Router>
+      </AlertState>
     </GithubState>
   );
 };
